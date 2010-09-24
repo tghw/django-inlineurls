@@ -17,6 +17,7 @@ from django.conf.urls.defaults import patterns
 from django.conf.urls.defaults import url as _url
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
+from django.utils.functional import wraps
 
 def _get_module():
     caller = sys._getframe(2).f_code.co_filename
@@ -40,6 +41,7 @@ def view(routes, template=None, login=False, **url_kwargs):
             # Add the @login_required decorator.
             func = login_required(func)
 
+        @wraps(func)
         def _handle_request(request, *args, **kwargs):
             result = func(request, *args, **kwargs) or dict()
             if template and isinstance(result, dict):
