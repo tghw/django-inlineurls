@@ -6,7 +6,8 @@ If a template is specified, you can simply return a context for it to be rendere
 
 ## Use
 
-    from inlineurl.decorators import view
+    # views.py
+    from inlineurls.decorators import view
 
     @view('/search/(?P<query>[^/]+/') # A view with no template
     def search(request, query):
